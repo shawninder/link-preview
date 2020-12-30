@@ -1,23 +1,17 @@
 {
-  "name": "fb-event-list",
+  "name": "link-preview",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel index.html",
-    "watch": "parcel watch index.html"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Shawn Inder <shawninder@gmail.com>",
-  "browserlist": [
-    "defaults"
-  ],
-  "devDependencies": {},
   "dependencies": {
-    "metascraper": "^5.16.0",
-    "metascraper-description": "^5.16.0",
-    "metascraper-image": "^5.16.0",
-    "metascraper-title": "^5.16.0",
-    "metascraper-url": "^5.16.0",
-    "node-fetch": "^2.6.1"
+    "metascraper": "5.16.6",
+    "metascraper-description": "5.16.6",
+    "metascraper-image": "5.16.6",
+    "metascraper-title": "5.16.6",
+    "metascraper-url": "5.16.6",
+    "node-fetch": "2.6.1"
   }
 }
