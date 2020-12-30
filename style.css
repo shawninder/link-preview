@@ -1,0 +1,30 @@
+.linkPreview {
+  clear: left;
+}
+
+.linkPreview strong {
+  /* title */
+  font-size: larger;
+}
+
+.linkPreview p {
+  /* description */
+}
+
+.linkPreview + a {
+  /* image link */
+  display: inline-block;
+  width: 300px;
+}
+
+.linkPreview img {
+  /* image */
+  float: left;
+  margin: 0 .8em 0.8em 0;
+  max-width: 300px;
+}
+
+.linkPreview em {
+  /* event date */
+  font-size: smaller;
+}
