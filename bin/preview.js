@@ -29,3 +29,8 @@ run(urls, opts)
   .then((str) => {
     process.stdout.write(str)
   })
+  .catch((ex) => {
+    process.stderr.write(`
+${ex.toString()}
+`)
+  })
