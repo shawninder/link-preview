@@ -1,14 +1,30 @@
+.linkList ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-gap: 1rem;
+  grid-auto-rows: auto;
+  list-style: none;
+  padding-left: 0;
+}
+
 .linkPreview {
-  clear: left;
+  width: 300px;
+  background: rgba(255, 255, 255, .8);
+  border-radius: 10px;
 }
 
 .linkPreview strong {
   /* title */
   font-size: larger;
+  margin: 0;
+  padding: .3rem .8rem 0 .8rem;
+  display: inline-block;
 }
 
 .linkPreview p {
   /* description */
+  margin: 0;
+  padding: .8rem;
 }
 
 .linkPreview + a {
@@ -19,12 +35,14 @@
 
 .linkPreview img {
   /* image */
-  float: left;
-  margin: 0 .8em 0.8em 0;
-  max-width: 300px;
+  margin: 0;
+  max-width: 300px !important;
+  border-radius: 10px 10px 0 0;
 }
 
 .linkPreview em {
   /* event date */
   font-size: smaller;
+  margin: 0;
+  padding: 0 .8rem;
 }
