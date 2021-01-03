@@ -7,7 +7,7 @@ Generates link previews as HTML from a list of URLs
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Node.js and npm](https://nodejs.org/en/)
 
-# Usage
+## Usage
 Just clone the repo and provide the binary with a list of space-separated URLs.
 
 ```sh
