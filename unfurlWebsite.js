@@ -6,14 +6,14 @@ const imageExtractor = require('metascraper-image')
 const titleExtractor = require('metascraper-title')
 const urlExtractor = require('metascraper-url')
 
-const eventDateExtractor = require('./eventDateExtractor')
+const eventExtractor = require('./eventExtractor')
 
 const scrape = metascraper([
   descriptionExtractor(),
   imageExtractor(),
   titleExtractor(),
   urlExtractor(),
-  eventDateExtractor()
+  eventExtractor(),
 ])
 
 module.exports = exports = async function unfurlWebsite (url) {

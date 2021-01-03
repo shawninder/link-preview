@@ -3,14 +3,19 @@ module.exports = exports = function toHtml ({
   title,
   description,
   image,
-  eventDate
+  eventDate,
+  eventIsVirtual,
+  eventLocation
 }) {
   return `
 <div class="linkPreview">
   <a href="${url}"><img src="${image}" /></a>
   <strong><a href="${url}">${title}</a></strong>
   <p>${description || ''}</p>${eventDate
+    ? `${(eventIsVirtual || eventLocation)
     ? `
+  <span>${eventIsVirtual ? 'Online' : eventLocation}</span>`
+    : ''}
   <em>${eventDate}</em>`
     : ''}
 </div>
