@@ -7,16 +7,31 @@ module.exports = exports = function toHtml ({
   eventIsVirtual,
   eventLocation
 }) {
+  const showEventLocation = eventIsVirtual || eventLocation
+
   return `
 <div class="linkPreview">
-  <a href="${url}"><img src="${image}" /></a>
-  <strong><a href="${url}">${title}</a></strong>
-  <p>${description || ''}</p>${eventDate
-    ? `${(eventIsVirtual || eventLocation)
+  <div class="linkPreview-image">
+    <img src="${image}" alt="${title}" />
+  </div>
+  <strong class="linkPreview-title">
+    <a href="${url}">
+      ${title}
+    </a>
+  </strong>${
+    (showEventLocation)
+      ? `
+  <span class="linkPreview-eventLocation">
+    ${eventIsVirtual ? 'Online' : eventLocation}
+  </span>`
+      : ''}
+  <p class="linkPreview-desc">
+    ${description || ''}
+  </p>${eventDate
     ? `
-  <span>${eventIsVirtual ? 'Online' : eventLocation}</span>`
-    : ''}
-  <em>${eventDate}</em>`
+  <em class="linkPreview-eventDate">
+    ${eventDate}
+  </em>`
     : ''}
 </div>
 `

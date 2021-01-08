@@ -1,3 +1,38 @@
+/* Collapsible Sections */
+.collapser {
+  cursor: pointer;
+  padding: .3rem .8rem;
+}
+
+.collapser::before {
+  content: '+ ';
+  font-family: monospace;
+}
+
+.collapser:hover {
+  background: #eee;
+}
+
+.collapser.opened::before {
+  content: '- ';
+}
+
+.collapser.isInBg {
+  filter: blur(10px);
+}
+
+/**/
+/* Link Lists */
+.linkList {
+
+}
+.linkList.isHidden {
+  display: none;
+}
+.linkList.isInBg {
+  filter: blur(10px);
+}
+
 .linkList ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, 300px);
@@ -6,14 +41,16 @@
   list-style: none;
   padding-left: 0;
 }
+/* Link Previews */
 
 .linkPreview {
   width: 300px;
   background: rgba(255, 255, 255, .8);
   border-radius: 10px;
+  overflow: hidden;
 }
 
-.linkPreview strong {
+.linkPreview-title {
   /* title */
   font-size: larger;
   margin: 0;
@@ -21,28 +58,87 @@
   display: inline-block;
 }
 
-.linkPreview p {
+.linkPreview-title a, .linkPreview-title a:visited {
+  color: inherit;
+}
+
+.linkPreview-eventLocation {
+  /* event location */
+  display: block;
+  margin: .8rem;
+  padding: .8rem;
+  border: 1px dotted black;
+}
+
+.linkPreview-desc {
   /* description */
   margin: 0;
   padding: .8rem;
 }
 
-.linkPreview + a {
-  /* image link */
+.linkPreview-image {
+  /* image container */
   display: inline-block;
   width: 300px;
+  height: 150px;
+  overflow: hidden;
 }
 
-.linkPreview img {
+.linkPreview-image img {
   /* image */
-  margin: 0;
   max-width: 300px !important;
   border-radius: 10px 10px 0 0;
 }
 
-.linkPreview em {
+.linkPreview-image img.clickable {
+  cursor: pointer;
+}
+
+.linkPreview-eventDate {
   /* event date */
   font-size: smaller;
   margin: 0;
   padding: 0 .8rem;
 }
+/**/
+/* Search Results */
+#searchResults {
+  position: absolute;
+  list-style: none;
+  padding-left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  padding: .3rem;
+  z-index: 1;
+  display: none;
+}
+#searchResults.isVisible {
+  display: block;
+}
+#searchResults > li {
+  display: inline-block;
+  vertical-align: top;
+  margin: .3rem;
+}
+.searchResult {
+  margin: 0;
+  position: relative;
+}
+.searchResult figcaption {
+  display: block;
+  position: absolute;
+  top: 0.3rem;
+  background: coral;
+  padding: .3rem;
+  font-size: larger;
+  border-radius: 10px;
+}
+.searchResult figcaption::before {
+  content: '#'
+}
+.searchResult .matchesQuery {
+  font-weight: inherit;
+  background: rgba(255, 237, 0, 0.3);
+}
+/**/
