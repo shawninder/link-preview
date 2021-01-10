@@ -1,24 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  /* Intentionnally jarring background image to help highlight readability issues */
+  /* Also, try to spot the animal! */
+  background-image: url("https://i.dailymail.co.uk/i/newpix/2018/09/07/16/4FD2157300000578-0-image-a-235_1536334744587.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 /* Collapsible Sections */
 .collapser {
   cursor: pointer;
-  padding: .3rem .8rem;
-}
-
-.collapser::before {
-  content: '+ ';
-  font-family: monospace;
+  position: relative;
+  width: 100%;
+  background-color: #074365;
+  display: block;
+  padding: 16px 44px 16px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+  line-height: 1;
+  border: 1px solid #074365;
+  color: #fff;
 }
 
 .collapser:hover {
-  background: #eee;
+  background-color: #05324c;
 }
 
-.collapser.opened::before {
-  content: '- ';
+.collapser::after {
+  content: ">";
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  left: auto;
+  pointer-events: none;
+  display: inline-block;
+  transition: transform .8s ease;
+  transform-origin: center center;
+  transform: rotate(90deg);
 }
 
-.collapser.isInBg {
-  filter: blur(10px);
+.collapser.opened::after {
+  transform: rotate(-90deg);
+}
+
+.collapser a, .collapser a:visited {
+  color: inherit;
 }
 
 /**/
@@ -28,9 +61,6 @@
 }
 .linkList.isHidden {
   display: none;
-}
-.linkList.isInBg {
-  filter: blur(10px);
 }
 
 .linkList ul {
@@ -120,6 +150,9 @@
   display: inline-block;
   vertical-align: top;
   margin: .3rem;
+}
+.noResults {
+  color: white;
 }
 .searchResult {
   margin: 0;

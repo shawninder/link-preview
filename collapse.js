@@ -1,20 +1,24 @@
-(function (ctx) {
+;(function (ctx) {
   const doc = ctx.document
 
   ctx.on(ctx, ['load'], go)
 
   function go () {
-    const h2s = doc.querySelectorAll('.collapser')
-    h2s.forEach((h2) => {
-      ctx.on(h2, ['click'], (event) => {
+    const collapsers = doc.querySelectorAll('.collapser')
+    collapsers.forEach((collapser) => {
+      ctx.on(collapser, ['click'], (event) => {
         toggleCollapse(event.target)
       })
-      const anchor = h2.querySelector('a')
+      const anchor = collapser.querySelector('a')
       ctx.on(anchor, ['click'], (event) => {
         event.preventDefault()
         event.stopPropagation()
-        ctx.location.hash = event.target.id
-        toggleCollapse(h2)
+        if (collapser.matches('.opened')) {
+          ctx.location.hash = event.target.id
+        } else {
+          ctx.location.hash = ''
+        }
+        toggleCollapse(collapser)
       })
     })
   }

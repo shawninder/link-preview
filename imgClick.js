@@ -1,4 +1,4 @@
-(function (ctx) {
+;(function (ctx) {
   const doc = ctx.document
 
   ctx.on(ctx, ['load'], go)

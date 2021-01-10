@@ -1,22 +1,72 @@
-(function (ctx) {
+;(function (ctx) {
   const doc = ctx.document
+
+  const allFields = [
+    'title',
+    'desc',
+    'eventLocation',
+    'el'
+  ]
+
+  const searchFields = [
+    'title',
+    'desc',
+    'eventLocation'
+  ]
+
+  let lists, links, searchBox, searchResults, query
+
   const eventuallyUpdateQuery = ctx.debounce(onQuery, 400)
-  const optCharRegEx = /[_\-:\/\\]/g
-  let lists, searchBox, searchResults, query
+
+  const miniSearch = new ctx.MiniSearch({
+    idField: 'url',
+    fields: searchFields,
+    storeFields: allFields,
+    searchOptions: {
+      boost: {
+        title: 2
+      },
+      prefix: true,
+      fuzzy: (term) => {
+        return (
+          term.length > 3
+            ? 0.2
+            : null
+        )
+      }
+    }
+  })
 
   ctx.on(ctx, ['load'], go)
 
   function go () {
-    // Track query
     searchBox = doc.querySelector('#searchBox')
     const searchBoxInput = searchBox.querySelector('input')
     searchResults = doc.querySelector('#searchResults')
     lists = doc.querySelectorAll('.linkList')
+    links = Array.prototype.reduce.call(lists, (all, list) => {
+      list.category = list.category || findCategory(list)
+      const catLinks = list.querySelectorAll('.linkPreview')
+      catLinks.forEach((link) => {
+        const titleAnchor = link.querySelector('.linkPreview-title a')
+        const url = titleAnchor.href
+        const location = link.querySelector('.linkPreview-eventLocation')
+        all.push({
+          url,
+          category: list.category,
+          el: link,
+          title: titleAnchor.innerText,
+          desc: link.querySelector('.linkPreview-desc').innerText,
+          eventLocation: location ? location.innerText : ''
+        })
+      })
+      return all
+    }, [])
+    miniSearch.addAll(links)
+
     ctx.on(searchBoxInput, ['change', 'input'], eventuallyUpdateQuery)
     ctx.on(searchBoxInput, ['keydown'], possiblyDissmissSearchResults)
     ctx.on(ctx, ['keydown', 'click'], possiblyDissmissSearchResults)
-    // find link previews and get relevance score
-    // reorder previews by that score, categories become "tags"
   }
 
   function possiblyDissmissSearchResults (event) {
@@ -35,16 +85,10 @@
   }
 
   function showSearchResults () {
-    lists.forEach((list) => {
-      list.classList.add('isInBg')
-    })
     searchResults.classList.add('isVisible')
   }
 
   function dissmissSearchResults () {
-    lists.forEach((list) => {
-      list.classList.remove('isInBg')
-    })
     searchResults.classList.remove('isVisible')
   }
 
@@ -72,32 +116,28 @@
   }
 
   function updateResults (query) {
-    const links = Array.prototype.reduce.call(lists, (all, list) => {
-      list.category = list.category || findCategory(list)
-      list.querySelectorAll('.linkPreview').forEach((link) => {
-        all.push(link)
-      })
-      return all
-    }, [])
-
-    const candidates = Array.prototype.map.call(links, Candidate)
-
-    const filtered = ctx.fuzzaldrin.filter(candidates, query, {
-      key: Candidate.prototype.key,
-      optCharRegEx,
-      pathSeparator: '\n',
-      usePathScoring: true
-    })
+    const filtered = miniSearch.search(query)
 
     empty(searchResults)
+
     if (filtered.length > 0) {
       filtered.forEach((result) => {
         searchResults.appendChild(createResult(result, query))
       })
       showSearchResults()
+    } else if (query.length > 0) {
+      searchResults.appendChild(createEmptyResult(query))
+      showSearchResults()
     } else {
       dissmissSearchResults()
     }
+  }
+
+  function createEmptyResult (query) {
+    const li = doc.createElement('li')
+    li.classList.add('noResults')
+    li.appendChild(doc.createTextNode('∅'))
+    return li
   }
 
   function createResult (data, query) {
@@ -105,12 +145,7 @@
     const figure = doc.createElement('figure')
     const clone = data.el.cloneNode(true)
     clone.classList.add('isClone')
-    const title = clone.querySelector('strong a')
-    title.innerHTML = wrap(title.innerText, query)
-    const desc = clone.querySelector('p')
-    desc.innerHTML = wrap(desc.innerText, query)
-    const category = findCategory(data.el)
-    if (category) {
+    if (data.category) {
       const caption = doc.createElement('figcaption')
       caption.appendChild(doc.createTextNode(category))
       figure.appendChild(caption)
@@ -142,26 +177,6 @@
   function empty (el) {
     return el.querySelectorAll('*').forEach((item) => {
       item.remove()
-    })
-  }
-
-  function Candidate (el) {
-    const candidate = { el }
-
-    const location = el.querySelector('span')
-    const serialized = `${el.querySelector('strong').innerText}\n${el.querySelector('p').innerText}\n${location ? location.innerText : ''}\n`
-    candidate[Candidate.prototype.key] = serialized
-    return candidate
-  }
-  Candidate.prototype.key = 'id'
-
-  function wrap (str, query) {
-    const tagClass = 'matchesQuery'
-    return ctx.fuzzaldrin.wrap(str, query, {
-      optCharRegEx,
-      wrap: {
-        tagClass
-      }
     })
   }
 })(this)
