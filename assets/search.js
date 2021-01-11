@@ -144,6 +144,7 @@
     const li = doc.createElement('li')
     const figure = doc.createElement('figure')
     const clone = data.el.cloneNode(true)
+    ctx.makeImgClickable(clone)
     clone.classList.add('isClone')
     if (data.category) {
       const caption = doc.createElement('figcaption')
