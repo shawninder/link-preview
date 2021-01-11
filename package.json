@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "css": "postcss style.css --use autoprefixer --use cssnano --dir min/",
+    "css": "postcss assets/style.css --use autoprefixer --use cssnano --dir min/",
     "js": "minify src -d min/",
     "build": "npm run css && npm run js"
   },
