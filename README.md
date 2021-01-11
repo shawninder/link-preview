@@ -8,16 +8,18 @@ Generates link previews as HTML from a list of URLs
 - [Node.js and npm](https://nodejs.org/en/)
 
 ## Usage
-Just clone the repo and provide the binary with a list of space-separated URLs.
+Just clone the repo, install dependencies, and provide the binary with a list of space-separated URLs.
 
 ```sh
 $ git clone git@github.com:shawninder/link-preview.git
 $ cd link-preview
+$ npm install
 $ node bin/preview <urls...>
 ```
 
 This will output some HTML for each of those URLs.
 
-You can add a bit of style with css: [these example styles](style.css) are a good place to start.
+See [the test page](test.html) for a usage example. You can also use it as a test bed for your own fixes or improvements.
 
-Finally, don't forget to review the results as this process won't get things right every time.
+## Build
+The test page uses the assets directly, but it is recommended to use a minified version of these assets. These can be found in [the min directory](min/) and rebuilt with `npm run build`.
