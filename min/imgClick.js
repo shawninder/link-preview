@@ -1,0 +1,1 @@
+(function(b){const c=b.document;b.on(b,["load"],function(){const a=c.querySelectorAll(".linkPreview");a.forEach(c=>{const d=c.querySelector(".linkPreview-image img"),e=c.querySelector(".linkPreview-title a");b.on(d,["click","auxclick"],a=>{0===a.button?window.location.assign(e.href):1===a.button&&window.open(e.href)}),d.classList.add("clickable")})})})(this);

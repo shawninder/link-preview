@@ -1,0 +1,1 @@
+function on(a,b,c){b.forEach(b=>{a.addEventListener(b,c,!1)})}
