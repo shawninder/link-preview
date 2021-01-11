@@ -112,11 +112,13 @@ body {
   width: 300px;
   height: 150px;
   overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
 }
 
 .linkPreview-image img {
   /* image */
-  max-width: 300px !important;
+  width: 300px;
   border-radius: 10px 10px 0 0;
 }
 
@@ -126,9 +128,9 @@ body {
 
 .linkPreview-eventDate {
   /* event date */
+  display: block;
   font-size: smaller;
-  margin: 0;
-  padding: 0 .8rem;
+  padding: 0 .8rem .3rem;
 }
 /**/
 /* Search Box */

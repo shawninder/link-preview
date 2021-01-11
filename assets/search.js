@@ -5,13 +5,15 @@
     'title',
     'desc',
     'eventLocation',
-    'el'
+    'el',
+    'category'
   ]
 
   const searchFields = [
     'title',
     'desc',
-    'eventLocation'
+    'eventLocation',
+    'category'
   ]
 
   let lists, links, searchBox, searchResults, query
@@ -135,7 +137,6 @@
 
   function createEmptyResult (query) {
     const li = doc.createElement('li')
-    li.classList.add('noResults')
     li.appendChild(doc.createTextNode('∅'))
     return li
   }
@@ -148,7 +149,7 @@
     clone.classList.add('isClone')
     if (data.category) {
       const caption = doc.createElement('figcaption')
-      caption.appendChild(doc.createTextNode(category))
+      caption.appendChild(doc.createTextNode(data.category))
       figure.appendChild(caption)
     }
     figure.appendChild(clone)
@@ -158,7 +159,7 @@
   }
 
   function findCategory (el) {
-    let current = el.parentNode.parentNode.parentNode
+    let current = el
     let collapser
     while (current = current.previousElementSibling) {
       if (current.matches('.collapser')) {
