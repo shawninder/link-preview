@@ -131,6 +131,18 @@ body {
   padding: 0 .8rem;
 }
 /**/
+/* Search Box */
+#searchBox .icon {
+  display: inline-block;
+  background: white;
+  border-radius: 1rem;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  vertical-align: middle;
+  text-align: center;
+}
+/**/
 /* Search Results */
 #searchResults {
   position: absolute;
